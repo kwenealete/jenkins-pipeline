@@ -1,36 +1,35 @@
 pipeline {
     agent any 
-    parameters {
-        // choice (name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'],  description:'')
-        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    tools {
+        maven 'maven-3.9'
     }
+    
     stages {
-        stage ("build") {
+        stage ("build jar") {
             steps {
-                echo 'building the application...'
-            }
-        }
-        stage ("test") {
-            when {
-                expression {
-                    params.executeTests
+                script{
+                    echo 'building the application...'
+                    sh 'mvn package'
                 }
             }
+        }
+        stage ("build image") {
+            
             steps {
-                echo 'testing the application...'
+                script {
+                    echo 'building the docker image'
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                        sh 'docker build -t monyakwene/demo-app:jma-2.0 .'
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh 'docker push monyakwene/demo-app:jma-2.0'
+                    }
+                }
             }
         }
         stage ("deploy") {
-            input{
-                message "select the environment to deploy to"
-                ok "Done"
-                parameters{
-                    choice(name: 'ENV', choices: ['dev', 'staging', 'prod', description: ''])
-                }
-            }
+            
             steps {
                 echo 'deploying the application...'
-                echo "deploying version ${ENV}"
             }
         }
     }
