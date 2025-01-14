@@ -28,7 +28,7 @@ pipeline {
             
             steps {
                 script {
-                    buildImage()
+                    buildImage 'monyakwene/demo-app:jma-3.0'
                 }
             }
         }
