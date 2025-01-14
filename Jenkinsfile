@@ -30,7 +30,7 @@ pipeline {
                 script {
                     buildImage 'monyakwene/demo-app:jma-4.0'
                     dockerLogin()
-                    dockerPush 'monyakwene/demo-app:jam-4.0'
+                    dockerPush 'monyakwene/demo-app:jma-4.0'
                 }
             }
         }
