@@ -12,8 +12,8 @@
 //     }
 // }
 
-// def deployApp() {
-//     echo 'Deploying the application...'
-// }
+def deployApp() {
+    echo 'Deploying the application...'
+}
 
-// return this
+return this
