@@ -24,11 +24,13 @@ pipeline {
                 }
             }
         }
-        stage ("build image") {
+        stage ("build and push image") {
             
             steps {
                 script {
-                    buildImage 'monyakwene/demo-app:jma-3.0'
+                    buildImage 'monyakwene/demo-app:jma-4.0'
+                    dockerLogin()
+                    dockerPush 'monyakwene/demo-app:jam-4.0'
                 }
             }
         }
