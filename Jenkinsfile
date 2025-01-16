@@ -13,7 +13,7 @@ pipeline {
     }
     
     stages {
-        stage ("init") {
+        stage ("init and testing webhook") {
             steps {
                 script {
                     gv = load "script.groovy"
