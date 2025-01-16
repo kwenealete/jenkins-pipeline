@@ -13,7 +13,7 @@ pipeline {
     }
     
     stages {
-        stage ("init") {
+        stage ("init testing for single and multibranch auto build") {
             steps {
                 script {
                     gv = load "script.groovy"
